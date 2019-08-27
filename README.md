@@ -61,8 +61,6 @@
 - **Executar testes**
 - **Executar linter**
 - "Commitar" alterações
-- Voltar para a master
-- Fazer merge com a branch criada anteriormente
 - Fazer push
 - Criar pull request
 - Esperar testes passarem
