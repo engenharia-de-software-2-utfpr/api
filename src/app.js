@@ -16,5 +16,8 @@ app.use(express.json());
 
 app.use('/api', api);
 
+app.use((err, req, res, next) => {
+  res.status(500).json({ message: 'SERVER_ERROR', data: err });
+});
 
 module.exports = app;
