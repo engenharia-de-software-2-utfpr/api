@@ -1,12 +1,20 @@
 const models = require('../../models');
 
-const add = async (req, res) => {
-  const report = await new models.Report({ description: 'Lorem Ipsum' }).save();
-  res.json(report);
+const add = async (req, res, next) => {
+  try {
+
+  } catch (error) {
+
+  }
 };
 
-const get = async (req, res) => {
-  res.json(await models.Report.find({}));
+const get = async (req, res, next) => {
+  try {
+    const data = await models.Report.find({});
+    res.json({ message: 'DATA_FOUND', data });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = { add, get };
