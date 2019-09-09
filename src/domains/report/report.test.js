@@ -11,7 +11,10 @@ describe('report', () => {
     });
 
     it('Retorna alguns relatos', async () => {
-      await models.Report.create([{ description: 'foo' }, { description: 'bar' }]);
+      await models.Report.create([
+        { description: 'foo' },
+        { description: 'bar' },
+      ]);
 
       const response = await supertest(app).get('/api/report');
       expect(response.status).toBe(200);
