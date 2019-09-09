@@ -1,6 +1,8 @@
 
 const { HOST, PORT } = require('./env');
 const app = require('./app');
+
+require('./utils/firebaseAdmin');
 require('./utils/mongoose');
 
 app.listen(PORT, HOST, () => {
