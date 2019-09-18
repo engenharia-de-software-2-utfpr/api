@@ -114,7 +114,7 @@ test('retorna erro se coordenada é inválida ao listar ocorrências', async ({ 
     longitude: '456'
   }
 
-  const response = await client.get('occurrence').query(payload).end()
+  const response = await client.get('occurrence/near').query(payload).end()
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -130,7 +130,7 @@ test('retorna um array vazio se não houverem ocorrências na área', async ({ a
     longitude: '456'
   }
 
-  const response = await client.get('occurrence').query(payload).end()
+  const response = await client.get('occurrence/near').query(payload).end()
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -161,12 +161,16 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
 
   let response = await client.post('occurrence').send(payload).end()
 
+  const occurrenceObj = await Occurrence.find(response.body.data.id)
+  occurrenceObj.status = 'approved'
+  await occurrenceObj.save()
+
   payload = {
     latitude: '-24.0389848',
     longitude: '-52.3754754'
   }
 
-  response = await client.get('occurrence').query(payload).end()
+  response = await client.get('occurrence/near').query(payload).end()
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -207,7 +211,6 @@ test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
     message: "occurrence found",
   })
 })
-
 
 test('retorna erro se ocorrência não existe ao buscar detalhes', async ({ assert, client }) => {
 

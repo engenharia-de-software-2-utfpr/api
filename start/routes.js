@@ -17,6 +17,8 @@
 const Route = use('Route')
 
 Route.post('/occurrence', 'OccurrenceController.create').validator('StoreOccurrence')
-Route.get('/occurrence', 'OccurrenceController.index')
+Route.get('/occurrence/near', 'OccurrenceController.near')
 Route.get('/occurrence/:id', 'OccurrenceController.details')
+Route.put('/occurrence/:id', 'OccurrenceController.updateStatus')
+Route.get('/occurrence', 'OccurrenceController.listByStatus')
 
