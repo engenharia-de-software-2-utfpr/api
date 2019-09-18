@@ -11,6 +11,24 @@ const OccurrenceCategory = use('App/Models/OccurrenceCategory')
 
 class OccurrenceController {
 
+    async listByStatus({ request }) {
+
+        const { status } = request.only(['status'])
+        const data = await Occurrence.query().where('status', status).fetch()
+
+        return { success: true, message: 'occurrences by status', data }
+
+    }
+
+    async updateStatus({ request, params }) {
+        const { status } = request.only(['status'])
+        const occurrence = await Occurrence.find(params.id)
+        occurrence.status = status
+        const data = await occurrence.save()
+
+        return { success: true, message: 'status updated', data }
+    }
+
     async details({ request, params }) {
         const occurrence = await Occurrence.find(params.id)
 
@@ -19,7 +37,7 @@ class OccurrenceController {
         return { success: true, message: "occurrence found", data: occurrence }
     }
 
-    async index({ request }) {
+    async near({ request }) {
         const data = request.only(['latitude', 'longitude'])
 
         const h3Index = h3.geoToH3(data.latitude, data.longitude, 7)
@@ -31,6 +49,7 @@ class OccurrenceController {
         const occurrences = await Database
             .select('id', 'category_name', 'latitude', 'longitude')
             .from('occurrences')
+            .where('status', 'approved')
             .whereIn('h3_index', kRing)
 
         return { success: true, message: "occurrences found", data: occurrences }

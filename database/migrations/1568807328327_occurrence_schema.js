@@ -15,7 +15,7 @@ class OccurrenceSchema extends Schema {
       table.string('longitude').notNullable()
       table.string('description').notNullable()
       table.integer('criticity_level').notNullable()
-      table.enu('status', ['waiting', 'approved', 'resolved']).defaultTo('waiting')
+      table.enu('status', ['waiting', 'rejected', 'approved', 'resolved']).defaultTo('waiting')
       table.integer('h3_index').notNullable()
       table.timestamps()
     })
