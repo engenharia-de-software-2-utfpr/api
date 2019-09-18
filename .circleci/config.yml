@@ -1,0 +1,48 @@
+version: 2
+jobs:
+  build-test:
+    working_directory: ~/RioDoCampoLimpo
+    docker:
+      - image: node:10-alpine
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: 
+          name: Instalando pacotes
+          command: npm i
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Copiando .env
+          command: cp .env.example .env
+      - run:
+          name: Executando testes 
+          command: npm test
+
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    working_directory: ~/RioDoCampoLimpo
+    steps:
+      - checkout
+      - run:
+          name: "Fazendo deploy"
+          command: echo "todo"
+  
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build-test:
+          filters:
+            branches:
+              ignore: master
+      - deploy:
+          filters:
+            branches:
+              only: master
