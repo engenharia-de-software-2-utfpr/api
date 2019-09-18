@@ -1,70 +1,28 @@
-# Rio do Campo Limpo **API**
+# Adonis API application
 
-[![CircleCI](https://circleci.com/gh/engenharia-de-software-2-utfpr/api.svg?style=svg)](https://circleci.com/gh/engenharia-de-software-2-utfpr/api)  ![GitHub issues](https://img.shields.io/github/issues-raw/engenharia-de-software-2-utfpr/api)
+This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
 
-## Estrutura do projeto
+1. Bodyparser
+2. Authentication
+3. CORS
+4. Lucid ORM
+5. Migrations and seeds
 
-```
-├── LICENSE
-├── README.md
-├── jest.config.js
-├── package-lock.json
-├── package.json
-└── src
-    ├── app.js
-    ├── domains
-    │   ├── index.js
-    │   ├── report
-    │   │   ├── index.js
-    │   │   ├── report.controller.js
-    │   │   ├── report.routes.js
-    │   │   └── report.test.js
-    │   └── user
-    │       ├── index.js
-    │       ├── user.controller.js
-    │       ├── user.routes.js
-    │       └── user.test.js
-    |       ...
-    ├── env.js
-    ├── models
-    │   ├── Report.js
-    │   └── index.js
-    |   ...
-    ├── server.js
-    └── utils
-        ├── mongoose.js
-        └── setupTests.js         
+## Setup
+
+Use the adonis command to install the blueprint
+
+```bash
+adonis new yardstick --api-only
 ```
 
-## Comandos
+or manually clone the repo and then run `npm install`.
 
-### Executar servidor: 
 
-`npm start`
+### Migrations
 
-### Executar servidor (modo desenvolvimento): 
+Run the following command to run startup migrations.
 
-`npm run dev`
-
-### Executar testes:
-
-`npm test`
-
-### Linter: 
-
-`npm run lint`
-
-## Workflow
-
-- Criar branch a partir da `master`
-- 💻☕
-- **Executar testes**
-- **Executar linter**
-- "Commitar" alterações
-- Fazer push
-- Criar pull request
-- Esperar testes passarem
-- Designar revisores
-- Esperar revisor aprovar
-- Fazer merge com a `master`
-- Excluir branch
+```js
+adonis migration:run
+```

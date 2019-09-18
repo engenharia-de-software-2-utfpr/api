@@ -3,8 +3,7 @@ jobs:
   build-test:
     working_directory: ~/RioDoCampoLimpo
     docker:
-      - image: node:10
-      - image: mongo:4
+      - image: node:10-alpine
     steps:
       - checkout
       - restore_cache:
@@ -19,6 +18,9 @@ jobs:
           paths:
             - ./node_modules
       - run:
+          name: Copiando .env
+          command: cp .env.example .env
+      - run:
           name: Executando testes 
           command: npm test
 
@@ -29,8 +31,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Fazendo deploy para Heroku"
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/riodocampolimpo.git master
+          name: "Fazendo deploy"
+          command: echo "todo"
   
 workflows:
   version: 2
