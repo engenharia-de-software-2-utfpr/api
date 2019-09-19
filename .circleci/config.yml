@@ -32,7 +32,7 @@ jobs:
       - checkout
       - run:
           name: "Fazendo deploy"
-          command: echo "todo"
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/riodocampolimpo.git master
   
 workflows:
   version: 2
