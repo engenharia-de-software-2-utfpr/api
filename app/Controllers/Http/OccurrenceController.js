@@ -72,7 +72,7 @@ class OccurrenceController {
             await Resource.create({ url: data.resources.audio, type: 'audio', occurrence_id: occurrence.id })
         }
 
-        return { success: true, data: occurrence }
+        return { success: true, message: "occurrence created", data: occurrence }
     }
 }
 
