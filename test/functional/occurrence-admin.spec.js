@@ -12,7 +12,7 @@ trait('DatabaseTransactions')
 
 test('altera status de uma ocorrência', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {
@@ -47,7 +47,7 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
 
 test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {
@@ -78,7 +78,7 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
 
 test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {

@@ -14,7 +14,7 @@ trait('DatabaseTransactions')
 test('retorna erro se a coordenada é inválida ao criar ocorrência (não encontrou um índice H3)', async ({ assert, client }) => {
 
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   const payload = {
     coordinates: {
@@ -43,7 +43,7 @@ test('retorna erro se a coordenada é inválida ao criar ocorrência (não encon
 test('cria uma ocorrência passando todas as informações', async ({ assert, client }) => {
 
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   const payload = {
     coordinates: {
@@ -77,7 +77,7 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
 test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, client }) => {
 
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   const payload = {
     coordinates: {
@@ -142,7 +142,7 @@ test('retorna um array vazio se não houverem ocorrências na área', async ({ a
 
 test('retorna ocorrências na área', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {
@@ -183,7 +183,7 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
 
 test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {

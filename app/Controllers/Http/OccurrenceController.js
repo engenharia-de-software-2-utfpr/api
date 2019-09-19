@@ -59,7 +59,7 @@ class OccurrenceController {
     async create({ request }) {
         const data = request.only(['coordinates', 'category_id', 'resources', 'description', 'criticity_level'])
 
-        const category = await OccurrenceCategory.findByOrFail('name', data.category_id)
+        const category = await OccurrenceCategory.findByOrFail('id', data.category_id)
 
         const h3Index = h3.geoToH3(data.coordinates.latitude, data.coordinates.longitude, 7)
         if (!h3Index)
