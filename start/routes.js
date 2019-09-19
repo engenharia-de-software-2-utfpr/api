@@ -22,3 +22,5 @@ Route.get('/occurrence/:id', 'OccurrenceController.details')
 Route.put('/occurrence/:id', 'OccurrenceController.updateStatus')
 Route.get('/occurrence', 'OccurrenceController.listByStatus')
 
+
+Route.post('/admin/signin', 'AdminController.signin')
