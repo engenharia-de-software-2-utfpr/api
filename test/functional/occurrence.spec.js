@@ -21,7 +21,7 @@ test('retorna erro se a coordenada é inválida ao criar ocorrência (não encon
       latitude: 'a',
       longitude: 'b'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
@@ -50,7 +50,7 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
@@ -84,7 +84,7 @@ test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, clien
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com'],
       video: 'https://www.video.com'
@@ -149,7 +149,7 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
       latitude: '-24.0389848',
       longitude: '-52.3754754'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
@@ -190,7 +190,7 @@ test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
       latitude: '-24.0389848',
       longitude: '-52.3754754'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',

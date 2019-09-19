@@ -19,7 +19,7 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
@@ -54,7 +54,7 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
@@ -85,7 +85,7 @@ test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',

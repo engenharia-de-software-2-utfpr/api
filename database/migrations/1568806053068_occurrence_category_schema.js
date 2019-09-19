@@ -6,7 +6,7 @@ const Schema = use('Schema')
 class OccurrenceCategorySchema extends Schema {
   up() {
     this.create('occurrence_categories', (table) => {
-      table.string('name').primary()
+      table.string('id').primary()
       table.string('description').notNullable()
       table.timestamps()
     })

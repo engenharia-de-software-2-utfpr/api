@@ -47,7 +47,7 @@ class OccurrenceController {
         const kRing = h3.kRing(h3Index, 1);
 
         const occurrences = await Database
-            .select('id', 'category_name', 'latitude', 'longitude')
+            .select('id', 'category_id', 'latitude', 'longitude')
             .from('occurrences')
             .where('status', 'approved')
             .whereIn('h3_index', kRing)
@@ -57,9 +57,9 @@ class OccurrenceController {
 
 
     async create({ request }) {
-        const data = request.only(['coordinates', 'category_name', 'resources', 'description', 'criticity_level'])
+        const data = request.only(['coordinates', 'category_id', 'resources', 'description', 'criticity_level'])
 
-        const category = await OccurrenceCategory.findByOrFail('name', data.category_name)
+        const category = await OccurrenceCategory.findByOrFail('name', data.category_id)
 
         const h3Index = h3.geoToH3(data.coordinates.latitude, data.coordinates.longitude, 7)
         if (!h3Index)
@@ -72,7 +72,7 @@ class OccurrenceController {
             h3_index: h3Index,
             description: data.description,
             criticity_level: data.criticity_level,
-            category_name: data.category_name,
+            category_id: data.category_id,
             user_id: 1
         })
 
