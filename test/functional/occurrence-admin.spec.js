@@ -11,7 +11,7 @@ trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
 test('altera status de uma ocorrência', async ({ assert, client }) => {
-  await User.create({})
+  await User.create({ id: 1 })
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
@@ -46,7 +46,7 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
 })
 
 test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
-  await User.create({})
+  await User.create({ id: 1 })
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
@@ -77,7 +77,7 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
 
 
 test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
-  await User.create({})
+  await User.create({ id: 1 })
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {

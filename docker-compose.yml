@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  testing_db:
+    container_name: riodocampo_testing
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: riodocampo_testing
+    ports:
+      - 5432:5432
+  development_db:
+    container_name: riodocampo_development
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: riodocampo_development
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5431:5432
+
+volumes: 
+  pgdata:
