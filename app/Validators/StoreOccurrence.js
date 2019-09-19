@@ -5,7 +5,7 @@ class StoreOccurrence {
     return {
       "coordinates.latitude": "required|string",
       "coordinates.longitude": "required|string",
-      "category_name": "required|string",
+      "category_id": "required|string",
       "resources.photos": "required|array|min:1|max:3",
       "resources.photos.*": "url",
       "resources.video": "url",

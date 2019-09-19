@@ -18,19 +18,19 @@ class OccurrenceCategorySeeder {
   async run() {
     await OccurrenceCategory.createMany([
       {
-        name: 'fire',
+        id: 'fire',
         description: 'Queimada'
       },
       {
-        name: 'solid_waste',
+        id: 'solid_waste',
         description: 'Dejeto sólido'
       },
       {
-        name: 'sewer',
+        id: 'sewer',
         description: 'Esgoto'
       },
       {
-        name: 'dengue',
+        id: 'dengue',
         description: 'Foco de dengue'
       }
     ])

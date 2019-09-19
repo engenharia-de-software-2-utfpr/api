@@ -12,14 +12,14 @@ trait('DatabaseTransactions')
 
 test('altera status de uma ocorrência', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
@@ -47,14 +47,14 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
 
 test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
@@ -78,14 +78,14 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
 
 test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
   await User.create({})
-  await OccurrenceCategory.create({ name: 'fire', description: 'Queimadas' })
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
     coordinates: {
       latitude: '123',
       longitude: '456'
     },
-    category_name: 'fire',
+    category_id: 'fire',
     resources: {
       photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
       video: 'https://www.video.com',
