@@ -38,12 +38,12 @@ test('Retorna erro se a senha for incorreta', async ({ assert, client }) => {
   }
 
   const response = await client.post('admin/signin').send(payload).end()
+  console.log(response)
   response.assertStatus(401)
   response.assertJSONSubset({
     success: false,
   })
 
-  console.log(response)
 
   assert.isNull(response.body.data)
 
