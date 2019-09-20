@@ -43,6 +43,8 @@ test('Retorna erro se a senha for incorreta', async ({ assert, client }) => {
     success: false,
   })
 
+  console.log(response)
+
   assert.isNull(response.body.data)
 
 })

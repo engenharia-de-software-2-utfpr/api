@@ -1,3 +1,17 @@
 {
-    "sqltools.useNodeRuntime": true
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "connectString": "postgres://postgres:secret@127.0.0.1:5431/riodocampo_development",
+            "dialect": "PostgreSQL",
+            "name": "development"
+        },
+        {
+            "connectString": "postgres://postgres:secret@127.0.0.1:5432/riodocampo_development",
+            "dialect": "PostgreSQL",
+            "isActive": true,
+            "isConnected": true,
+            "name": "testing"
+        }
+    ]
 }

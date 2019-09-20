@@ -12,21 +12,21 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-2-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      - run: 
+      - run:
           name: Instalando pacotes
           command: npm i
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-2-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
           name: Copiando .env
           command: cp .env.example .env
       - run:
-          name: Executando testes 
+          name: Executando testes
           command: npm test
 
   deploy:
@@ -38,7 +38,7 @@ jobs:
       - run:
           name: "Fazendo deploy"
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/riodocampolimpo.git master
-  
+
 workflows:
   version: 2
   build-test-deploy:
