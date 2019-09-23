@@ -16,11 +16,12 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('/occurrence', 'OccurrenceController.create').validator('StoreOccurrence')
+Route.post('/occurrence', 'OccurrenceController.create').validator('CreateOccurrence')
 Route.get('/occurrence/near', 'OccurrenceController.near')
 Route.get('/occurrence/:id', 'OccurrenceController.details')
-Route.put('/occurrence/:id', 'OccurrenceController.updateStatus')
-Route.get('/occurrence', 'OccurrenceController.listByStatus')
+
+Route.put('/occurrence-admin/:id/status', 'OccurrenceAdminController.updateStatus')
+Route.get('/occurrence-admin', 'OccurrenceAdminController.index')
 
 
 Route.post('/admin/signin', 'AdminController.signin')

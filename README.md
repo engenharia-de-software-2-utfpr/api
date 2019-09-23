@@ -1,28 +1,30 @@
-# Adonis API application
+# Rio do Campo Limpo **API**
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+## Stack
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+- Adonis
+- Postgres
+- CircleCI
+- Heroku
 
-## Setup
+## Executando localmente
 
-Use the adonis command to install the blueprint
+- Instalar `docker` e `docker-compose`.
+- Executar `docker-compose up -d` para executar os bancos de teste e desenvolvimento.
+- Instalar a cli do Adonis globalmente: `npm i -g @adonisjs/cli`
+  
+### Servindo a aplicação
 
-```bash
-adonis new yardstick --api-only
-```
+- `adonis serve --dev`
 
-or manually clone the repo and then run `npm install`.
+### Migrando tabelas
 
+- `adonis migration:run`
 
-### Migrations
+### Inserir dados iniciais
 
-Run the following command to run startup migrations.
+- `adonis seed`
 
-```js
-adonis migration:run
-```
+### Executando testes
+
+- `adonis test`

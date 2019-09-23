@@ -11,23 +11,7 @@ const OccurrenceCategory = use('App/Models/OccurrenceCategory')
 
 class OccurrenceController {
 
-    async listByStatus({ request }) {
 
-        const { status } = request.only(['status'])
-        const data = await Occurrence.query().where('status', status).fetch()
-
-        return { success: true, message: 'occurrences by status', data }
-
-    }
-
-    async updateStatus({ request, params }) {
-        const { status } = request.only(['status'])
-        const occurrence = await Occurrence.find(params.id)
-        occurrence.status = status
-        const data = await occurrence.save()
-
-        return { success: true, message: 'status updated', data }
-    }
 
     async details({ request, params }) {
         const occurrence = await Occurrence.find(params.id)
@@ -88,7 +72,7 @@ class OccurrenceController {
             await Resource.create({ url: data.resources.audio, type: 'audio', occurrence_id: occurrence.id })
         }
 
-        return { success: true, data: occurrence }
+        return { success: true, message: "occurrence created", data: occurrence }
     }
 }
 
