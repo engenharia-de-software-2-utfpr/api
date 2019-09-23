@@ -2,14 +2,16 @@
     "sqltools.useNodeRuntime": true,
     "sqltools.connections": [
         {
-            "connectionTimeout": 30,
-            "database": "riodocampo_development",
+            "connectString": "postgres://postgres:secret@127.0.0.1:5431/riodocampo_development",
             "dialect": "PostgreSQL",
-            "name": "development",
-            "password": "secret",
-            "port": 5431,
-            "server": "127.0.0.1",
-            "username": "postgres"
+            "name": "development"
+        },
+        {
+            "connectString": "postgres://postgres:secret@127.0.0.1:5432/riodocampo_development",
+            "dialect": "PostgreSQL",
+            "isActive": true,
+            "isConnected": true,
+            "name": "testing"
         }
     ]
 }
