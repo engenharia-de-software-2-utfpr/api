@@ -27,6 +27,7 @@ test('não altera status de uma ocorrência se o token não foi passado', async 
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -104,6 +105,7 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -135,6 +137,7 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -168,6 +171,7 @@ test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }

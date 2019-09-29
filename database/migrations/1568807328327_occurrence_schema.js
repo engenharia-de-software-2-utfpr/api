@@ -13,7 +13,8 @@ class OccurrenceSchema extends Schema {
       table.foreign('category_id').references('occurrence_categories.id')
       table.string('latitude').notNullable()
       table.string('longitude').notNullable()
-      table.string('description').notNullable()
+      table.string('name').notNullable()
+      table.string('description')/* .notNullable() */
       table.integer('criticity_level').notNullable()
       table.enu('status', ['waiting', 'rejected', 'approved', 'resolved']).defaultTo('waiting')
       table.string('h3_index').notNullable()
