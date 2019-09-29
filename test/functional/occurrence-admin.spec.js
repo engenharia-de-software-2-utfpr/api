@@ -25,6 +25,7 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -62,6 +63,7 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -91,6 +93,7 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -122,6 +125,7 @@ test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
