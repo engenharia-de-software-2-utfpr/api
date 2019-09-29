@@ -27,6 +27,7 @@ test('retorna erro se a coordenada é inválida ao criar ocorrência (não encon
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -56,6 +57,7 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -89,6 +91,7 @@ test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, clien
       photos: ['https://www.photo1.com', 'https://www.photo2.com'],
       video: 'https://www.video.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -155,6 +158,7 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
@@ -196,6 +200,7 @@ test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
