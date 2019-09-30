@@ -77,7 +77,8 @@ Respostas:
 
 { success: true, message: 'status updated', data }
 */
-Route.put('/occurrence-admin/:id/status', 'OccurrenceAdminController.updateStatus')
+/*Route.put('/occurrence-admin/:id/status', 'OccurrenceAdminController.updateStatus')*/
+Route.put('/occurrence-admin/:id/status', 'OccurrenceAdminController.updateStatus').middleware(['adminAuth'])
 
 /* GET /occurrence-admin - Retorna ocorrências (com ou sem filtro) 
 
@@ -89,8 +90,8 @@ Respostas:
 Sem filtro: { success: true, message: 'all occurrences', data }
 Com filtro: { success: true, message: 'occurrences by status', data }
 */
-Route.get('/occurrence-admin', 'OccurrenceAdminController.index')
-
+/*Route.get('/occurrence-admin', 'OccurrenceAdminController.index')*/
+Route.get('/occurrence-admin', 'OccurrenceAdminController.index').middleware(['adminAuth'])
 
 /* POST /admin/signin - Login administrador
 
