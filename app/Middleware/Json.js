@@ -11,6 +11,7 @@ class Json {
    */
   async handle({ request }, next) {
     request.request.headers['accept'] = 'application/json'
+    request.request.headers['content-type'] = 'application/json'
     await next()
   }
 }
