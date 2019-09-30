@@ -66,6 +66,7 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
       video: 'https://www.video.com',
       audio: 'https://www.audio.com'
     },
+    name: 'nome',
     description: 'ola',
     criticity_level: 3
   }
