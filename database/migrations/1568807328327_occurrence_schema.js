@@ -7,7 +7,7 @@ class OccurrenceSchema extends Schema {
   up() {
     this.create('occurrences', (table) => {
       table.increments()
-      table.integer('user_id').notNullable()
+      table.string('user_id').notNullable()
       table.foreign('user_id').references('users.id')
       table.string('category_id').notNullable()
       table.foreign('category_id').references('occurrence_categories.id')
