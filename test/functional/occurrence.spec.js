@@ -247,6 +247,178 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
   assert.lengthOf(response.body.data, 1)
 })
 
+test('retorna ocorrências na área (kRing vizinho)', async ({ assert, client }) => {
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
+
+  let payload = {
+    coordinates: {
+      latitude: '-24.044337',
+      longitude: '-52.406844'
+    },
+    category_id: 'fire',
+    resources: {
+      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
+      video: 'https://www.video.com',
+      audio: 'https://www.audio.com'
+    },
+    name: 'nome',
+    description: 'ola',
+    criticity_level: 3
+  }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  let response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+
+  const occurrenceObj = await Occurrence.find(response.body.data.id)
+  occurrenceObj.status = 'approved'
+  await occurrenceObj.save()
+
+  payload = {
+    latitude: '-24.035659',
+    longitude: '-52.3763614'
+  }
+
+  response = await client.get('occurrence/near').header('Authorization', testToken).query(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
+
+  response.assertStatus(200)
+  response.assertJSONSubset({
+    success: true,
+    message: "occurrences found",
+  })
+
+  assert.lengthOf(response.body.data, 1)
+})
+
+test('retorna vazio (fora da borda do kRing vizinho)', async ({ assert, client }) => {
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
+
+  let payload = {
+    coordinates: {
+      latitude: '-24.043897',
+      longitude: '-52.407203'
+    },
+    category_id: 'fire',
+    resources: {
+      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
+      video: 'https://www.video.com',
+      audio: 'https://www.audio.com'
+    },
+    name: 'nome',
+    description: 'ola',
+    criticity_level: 3
+  }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  let response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+
+  const occurrenceObj = await Occurrence.find(response.body.data.id)
+  occurrenceObj.status = 'approved'
+  await occurrenceObj.save()
+
+  payload = {
+    latitude: '-24.035659',
+    longitude: '-52.3763614'
+  }
+
+  response = await client.get('occurrence/near').header('Authorization', testToken).query(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
+
+  response.assertStatus(200)
+  response.assertJSONSubset({
+    success: true,
+    message: "occurrences found",
+    data: []
+  })
+
+  assert.lengthOf(response.body.data, 0)
+})
+
+test('retorna 2 ocorrências', async ({ assert, client }) => {
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
+  await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
+
+  let payload = {
+    coordinates: {
+      latitude: '-24.043897',
+      longitude: '-52.407203'
+    },
+    category_id: 'fire',
+    resources: {
+      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
+      video: 'https://www.video.com',
+      audio: 'https://www.audio.com'
+    },
+    name: 'nome',
+    description: 'ola',
+    criticity_level: 3
+  }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  let response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+
+  let occurrenceObj = await Occurrence.find(response.body.data.id)
+  occurrenceObj.status = 'approved'
+  await occurrenceObj.save()
+
+  payload = {
+    coordinates: {
+      latitude: '-24.044337',
+      longitude: '-52.406844'
+    },
+    category_id: 'fire',
+    resources: {
+      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
+      video: 'https://www.video.com',
+      audio: 'https://www.audio.com'
+    },
+    name: 'nome',
+    description: 'ola',
+    criticity_level: 3
+  }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+
+  occurrenceObj = await Occurrence.find(response.body.data.id)
+  occurrenceObj.status = 'approved'
+  await occurrenceObj.save()
+
+  payload = {
+    latitude: '-24.044732',
+    longitude: '-52.406179'
+  }
+
+  response = await client.get('occurrence/near').header('Authorization', testToken).query(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
+
+  response.assertStatus(200)
+  response.assertJSONSubset({
+    success: true,
+    message: "occurrences found",
+  })
+
+  assert.lengthOf(response.body.data, 2)
+})
+
+
+
 test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
   const userInfo = {
     "user_id": "1234",
