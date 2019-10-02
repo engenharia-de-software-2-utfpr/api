@@ -41,7 +41,7 @@ Respostas:
 Coordenadas inválidas: { success: false, message: "invalid coordinates", data: null }
 Sucesso: { success: true, message: "occurrence created", data: occurrence }
 */
-Route.post('/occurrence', 'OccurrenceController.create').validator('CreateOccurrence')
+Route.post('/occurrence', 'OccurrenceController.create').validator('CreateOccurrence').middleware('userAuth')
 
 /* GET /occurrence/near - Lista ocorrências da região
 
@@ -52,7 +52,7 @@ Respostas:
 Coordenadas inválidas: { success: false, message: "invalid coordinates", data: null }
 Sucesso: { success: true, message: "occurrences found", data: occurrences }
 */
-Route.get('/occurrence/near', 'OccurrenceController.near')
+Route.get('/occurrence/near', 'OccurrenceController.near').middleware('userAuth')
 
 /* GET /occurrence/:id - Detalhes de uma ocorrência
 
@@ -63,7 +63,7 @@ Respostas:
 Ocorrência não encontrada: { success: false, message: "occurrence not found", data: null }
 Sucesso: { success: true, message: "occurrence found", data: occurrence }
 */
-Route.get('/occurrence/:id', 'OccurrenceController.details')
+Route.get('/occurrence/:id', 'OccurrenceController.details').middleware('userAuth')
 
 /* PUT /occurrence-admin/:id/status - Atualiza status ocorrência
 
@@ -78,7 +78,7 @@ Respostas:
 { success: true, message: 'status updated', data }
 */
 /*Route.put('/occurrence-admin/:id/status', 'OccurrenceAdminController.updateStatus')*/
-Route.put('/occurrence-admin/:id/status', 'OccurrenceAdminController.updateStatus').middleware(['adminAuth'])
+Route.put('/occurrence-admin/:id/status', 'OccurrenceAdminController.updateStatus').middleware('adminAuth')
 
 /* GET /occurrence-admin - Retorna ocorrências (com ou sem filtro) 
 
@@ -91,7 +91,7 @@ Sem filtro: { success: true, message: 'all occurrences', data }
 Com filtro: { success: true, message: 'occurrences by status', data }
 */
 /*Route.get('/occurrence-admin', 'OccurrenceAdminController.index')*/
-Route.get('/occurrence-admin', 'OccurrenceAdminController.index').middleware(['adminAuth'])
+Route.get('/occurrence-admin', 'OccurrenceAdminController.index').middleware('adminAuth')
 
 /* POST /admin/signin - Login administrador
 
@@ -117,3 +117,22 @@ Email não cadastrado: {
 }
 */
 Route.post('/admin/signin', 'AdminController.signin')
+
+
+/* POST /user/signup - Cadastro usuário
+
+Obs.: Sempre chamar essa rota ao clicar no botão de login (por enquanto só Facebook).
+Se o usuário já existir, o mesmo será retornado.
+
+Exemplo chamada:
+
+{
+	"token": "token retornado pelo firebase"
+}
+
+Respostas:
+
+Sucesso: { success: true, message: "user returned", data: user }
+Token inválido (401): { success: false, message: "error decoding token", data: null }
+ */
+Route.post('/user/signup', 'UserController.signup')

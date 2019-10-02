@@ -2,6 +2,10 @@
 
 const { test, trait } = use('Test/Suite')('OccurrenceAdmin')
 
+const jwt = require('jsonwebtoken')
+const { ioc } = use('@adonisjs/fold')
+
+
 const Admin = use('App/Models/Admin')
 const User = use('App/Models/User')
 const Resource = use('App/Models/Resource')
@@ -12,8 +16,25 @@ trait('Test/ApiClient')
 trait('Auth/Client')
 trait('DatabaseTransactions')
 
+const firebaseFake = () => {
+  return {
+    async decodeToken(token) {
+      try {
+        return jwt.verify(token, 'poi')
+      } catch (error) {
+        return null
+      }
+    }
+  }
+}
+
 test('não altera status de uma ocorrência se o token não foi passado', async ({ assert, client }) => {
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
@@ -32,7 +53,10 @@ test('não altera status de uma ocorrência se o token não foi passado', async 
     criticity_level: 3
   }
 
-  let response = await client.post('occurrence').send(payload).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+
+  let response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   let occurrenceObj = await Occurrence.find(response.body.data.id)
   assert.strictEqual(occurrenceObj.status, "waiting")
@@ -50,7 +74,13 @@ test('não altera status de uma ocorrência se o token não foi passado', async 
 })
 
 test('altera status de uma ocorrência', async ({ assert, client }) => {
-  const user = await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
   const admin = await Admin.create({ id: 1, name: "Admin", email: "admin@admin.com", password: "1234" })
 
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
@@ -70,8 +100,10 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
     description: 'ola',
     criticity_level: 3
   }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
 
-  let response = await client.post('occurrence').send(payload).end()
+  let response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   let occurrenceObj = await Occurrence.find(response.body.data.id)
   assert.strictEqual(occurrenceObj.status, "waiting")
@@ -90,7 +122,12 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
 
 
 test('lista todas as ocorrências', async ({ assert, client }) => {
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
   const admin = await Admin.create({ id: 1, name: "Admin", email: "admin@admin.com", password: "1234" })
 
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
@@ -110,10 +147,12 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
     description: 'ola',
     criticity_level: 3
   }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
 
-  await client.post('occurrence').send(payload).end()
-  await client.post('occurrence').send(payload).end()
-  await client.post('occurrence').send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   const response = await client.get('occurrence-admin').loginVia(admin, 'jwt').end()
 
@@ -122,7 +161,12 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
 })
 
 test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
   const admin = await Admin.create({ id: 1, name: "Admin", email: "admin@admin.com", password: "1234" })
 
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
@@ -142,10 +186,12 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
     description: 'ola',
     criticity_level: 3
   }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
 
-  await client.post('occurrence').send(payload).end()
-  await client.post('occurrence').send(payload).end()
-  await client.post('occurrence').send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   const response = await client.get('occurrence-admin').loginVia(admin, 'jwt').query({ status: 'waiting' }).end()
 
@@ -156,7 +202,12 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
 
 
 test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
   const admin = await Admin.create({ id: 1, name: "Admin", email: "admin@admin.com", password: "1234" })
 
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
@@ -176,10 +227,12 @@ test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
     description: 'ola',
     criticity_level: 3
   }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
 
-  await client.post('occurrence').send(payload).end()
-  await client.post('occurrence').send(payload).end()
-  await client.post('occurrence').send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   const occurrence = await Occurrence.first()
   occurrence.status = 'approved'

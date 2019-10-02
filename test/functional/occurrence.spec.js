@@ -1,6 +1,10 @@
 'use strict'
 
+const jwt = require('jsonwebtoken')
+
+
 const { test, trait } = use('Test/Suite')('Occurrence')
+const { ioc } = use('@adonisjs/fold')
 
 const User = use('App/Models/User')
 const Resource = use('App/Models/Resource')
@@ -11,9 +15,27 @@ trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
 
+const firebaseFake = () => {
+  return {
+    async decodeToken(token) {
+      try {
+        return jwt.verify(token, 'poi')
+      } catch (error) {
+        return null
+      }
+    }
+  }
+}
+
 test('retorna erro se a coordenada é inválida ao criar ocorrência (não encontrou um índice H3)', async ({ assert, client }) => {
 
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   const payload = {
@@ -31,8 +53,10 @@ test('retorna erro se a coordenada é inválida ao criar ocorrência (não encon
     description: 'ola',
     criticity_level: 3
   }
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  const response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
 
-  const response = await client.post('occurrence').send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -43,7 +67,13 @@ test('retorna erro se a coordenada é inválida ao criar ocorrência (não encon
 
 test('cria uma ocorrência passando todas as informações', async ({ assert, client }) => {
 
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   const payload = {
@@ -61,8 +91,9 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
     description: 'ola',
     criticity_level: 3
   }
-
-  const response = await client.post('occurrence').send(payload).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  const response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -78,7 +109,13 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
 
 test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, client }) => {
 
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   const payload = {
@@ -95,8 +132,9 @@ test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, clien
     description: 'ola',
     criticity_level: 3
   }
-
-  const response = await client.post('occurrence').send(payload).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  const response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -112,12 +150,21 @@ test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, clien
 
 
 test('retorna erro se coordenada é inválida ao listar ocorrências', async ({ assert, client }) => {
+
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
   const payload = {
     latitude: 'a',
     longitude: '456'
   }
-
-  const response = await client.get('occurrence/near').query(payload).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  const response = await client.get('occurrence/near').header('Authorization', testToken).query(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -127,13 +174,21 @@ test('retorna erro se coordenada é inválida ao listar ocorrências', async ({ 
 })
 
 test('retorna um array vazio se não houverem ocorrências na área', async ({ assert, client }) => {
-
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
   const payload = {
     latitude: '123',
     longitude: '456'
   }
 
-  const response = await client.get('occurrence/near').query(payload).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+
+  const response = await client.get('occurrence/near').header('Authorization', testToken).query(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -144,7 +199,13 @@ test('retorna um array vazio se não houverem ocorrências na área', async ({ a
 })
 
 test('retorna ocorrências na área', async ({ assert, client }) => {
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
@@ -162,8 +223,8 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
     description: 'ola',
     criticity_level: 3
   }
-
-  let response = await client.post('occurrence').send(payload).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  let response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
 
   const occurrenceObj = await Occurrence.find(response.body.data.id)
   occurrenceObj.status = 'approved'
@@ -174,7 +235,8 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
     longitude: '-52.3754754'
   }
 
-  response = await client.get('occurrence/near').query(payload).end()
+  response = await client.get('occurrence/near').header('Authorization', testToken).query(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -186,7 +248,13 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
 })
 
 test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
-  await User.create({ id: 1 })
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
+
   await OccurrenceCategory.create({ id: 'fire', description: 'Queimadas' })
 
   let payload = {
@@ -205,10 +273,12 @@ test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
     criticity_level: 3
   }
 
-  let response = await client.post('occurrence').send(payload).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  let response = await client.post('occurrence').header('Authorization', testToken).send(payload).end()
 
+  response = await client.get('occurrence/' + response.body.data.id).header('Authorization', testToken).query(payload).end()
 
-  response = await client.get('occurrence/' + response.body.data.id).query(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({
@@ -218,8 +288,16 @@ test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
 })
 
 test('retorna erro se ocorrência não existe ao buscar detalhes', async ({ assert, client }) => {
+  const userInfo = {
+    "user_id": "1234",
+    "name": "Foo"
+  }
+  await User.create({ id: userInfo.user_id, name: userInfo.name })
+  const testToken = jwt.sign(userInfo, 'poi')
 
-  const response = await client.get('occurrence/1').send({}).end()
+  ioc.fake('Adonis/Services/Firebase', firebaseFake)
+  const response = await client.get('occurrence/1').header('Authorization', testToken).send({}).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   response.assertStatus(200)
   response.assertJSONSubset({

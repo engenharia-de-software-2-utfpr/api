@@ -58,7 +58,7 @@ class OccurrenceController {
             description: data.description,
             criticity_level: data.criticity_level,
             category_id: data.category_id,
-            user_id: 1
+            user_id: request.user.id
         })
 
         for (const photo of data.resources.photos) {
