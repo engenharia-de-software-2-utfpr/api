@@ -136,3 +136,6 @@ Sucesso: { success: true, message: "user returned", data: user }
 Token inválido (401): { success: false, message: "error decoding token", data: null }
  */
 Route.post('/user/signup', 'UserController.signup')
+
+
+Route.get('/occurrence-category', 'OccurrenceCategoryController.index')
