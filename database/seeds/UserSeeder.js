@@ -18,7 +18,7 @@ const User = use('App/Models/User')
 
 class UserSeeder {
   async run() {
-    await User.create({ id: 1 })
+    await User.create({ id: '1234', name: "Foo" })
   }
 }
 
