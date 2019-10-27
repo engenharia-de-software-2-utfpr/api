@@ -10,7 +10,6 @@ class StoreOccurrence {
       "resources.photos.*": "url",
       "resources.video": "url",
       "resources.audio": "url",
-      "name": "string|required|max:1000",
       "description": "string|max:1000",
       "criticity_level": "required|number|range:0,6"
     }

@@ -54,7 +54,6 @@ class OccurrenceController {
             latitude: data.coordinates.latitude,
             longitude: data.coordinates.longitude,
             h3_index: h3Index,
-            name: data.name,
             description: data.description,
             criticity_level: data.criticity_level,
             category_id: data.category_id,
