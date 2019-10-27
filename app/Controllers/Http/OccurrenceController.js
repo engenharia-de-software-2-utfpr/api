@@ -1,12 +1,14 @@
 'use strict'
 
 const h3 = require('h3-js')
+const uuid = require('uuid')
 
 const Database = use('Database')
 const Occurrence = use('App/Models/Occurrence')
 const Resource = use('App/Models/Resource')
 const OccurrenceCategory = use('App/Models/OccurrenceCategory')
 
+const Firebase = use('Adonis/Services/Firebase')
 
 
 class OccurrenceController {
@@ -59,27 +61,39 @@ class OccurrenceController {
             user_id: request.user.id
         })
 
-        for (let index = 0; index < data.num_photos; index++) {
 
-            // gera url para foto
-            await Resource.create({ url: 'url', type: 'photo', occurrence_id: occurrence.id })
+        const response = { ...occurrence.toJSON(), photos: [], videos: [], audios: [] }
+
+        for (let index = 0; index < data.num_photos; index++) {
+            const fileName = uuid.v4() + '.jpg'
+            const url = await Firebase.generateUrl(fileName)
+
+            await Resource.create({ name: fileName, type: 'photo', occurrence_id: occurrence.id })
+
+            response.photos.push(url)
         }
 
 
         for (let index = 0; index < data.num_videos; index++) {
+            const fileName = uuid.v4() + '.jpg'
+            const url = await Firebase.generateUrl(fileName)
 
-            // gera url para foto
-            await Resource.create({ url: 'url', type: 'video', occurrence_id: occurrence.id })
+            await Resource.create({ name: fileName, type: 'video', occurrence_id: occurrence.id })
+
+            response.videos.push(url)
         }
 
 
         for (let index = 0; index < data.num_audios; index++) {
+            const fileName = uuid.v4() + '.jpg'
+            const url = await Firebase.generateUrl(fileName)
 
-            // gera url para foto
-            await Resource.create({ url: 'url', type: 'audio', occurrence_id: occurrence.id })
+            await Resource.create({ name: fileName, type: 'audio', occurrence_id: occurrence.id })
+
+            response.audios.push(url)
         }
 
-        return { success: true, message: "occurrence created", data: occurrence }
+        return { success: true, message: "occurrence created", data: response }
     }
 }
 

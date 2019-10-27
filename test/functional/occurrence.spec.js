@@ -23,6 +23,10 @@ const firebaseFake = () => {
       } catch (error) {
         return null
       }
+    },
+
+    async generateUrl(fileName) {
+      return 'www.url.com'
     }
   }
 }
@@ -91,7 +95,8 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
 
   response.assertStatus(200)
   response.assertJSONSubset({
-    success: true
+    success: true,
+    data: { photos: ["www.url.com"] }
   })
 
   const responseObj = await Occurrence.find(response.body.data.id)
@@ -130,7 +135,9 @@ test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, clien
 
   response.assertStatus(200)
   response.assertJSONSubset({
-    success: true
+    success: true,
+    data: { photos: ["www.url.com", "www.url.com"] }
+
   })
 
   const responseObj = await Occurrence.find(response.body.data.id)

@@ -29,7 +29,8 @@
     "firebase-admin": "^8.6.0",
     "h3-js": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "sqlite3": "^4.1.0"

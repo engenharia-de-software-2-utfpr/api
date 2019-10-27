@@ -24,6 +24,9 @@ const firebaseFake = () => {
       } catch (error) {
         return null
       }
+    },
+    async generateUrl(fileName) {
+      return 'www.url.com'
     }
   }
 }
