@@ -43,11 +43,9 @@ test('não altera status de uma ocorrência se o token não foi passado', async 
       longitude: '456'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     name: 'nome',
     description: 'ola',
     criticity_level: 3
@@ -91,11 +89,9 @@ test('altera status de uma ocorrência', async ({ assert, client }) => {
       longitude: '456'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     name: 'nome',
     description: 'ola',
     criticity_level: 3
@@ -138,11 +134,9 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
       longitude: '456'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     name: 'nome',
     description: 'ola',
     criticity_level: 3
@@ -177,11 +171,9 @@ test('lista todas as ocorrências pendentes', async ({ assert, client }) => {
       longitude: '456'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     name: 'nome',
     description: 'ola',
     criticity_level: 3
@@ -218,11 +210,9 @@ test('lista todas as ocorrências aprovadas', async ({ assert, client }) => {
       longitude: '456'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     name: 'nome',
     description: 'ola',
     criticity_level: 3

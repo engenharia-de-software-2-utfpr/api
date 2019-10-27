@@ -49,7 +49,6 @@ class OccurrenceController {
         if (!h3Index)
             return { success: false, message: "invalid coordinates", data: null }
 
-
         const occurrence = await Occurrence.create({
             latitude: data.coordinates.latitude,
             longitude: data.coordinates.longitude,
@@ -60,16 +59,24 @@ class OccurrenceController {
             user_id: request.user.id
         })
 
-        for (const photo of data.resources.photos) {
-            await Resource.create({ url: photo, type: 'photo', occurrence_id: occurrence.id })
+        for (let index = 0; index < data.num_photos; index++) {
+
+            // gera url para foto
+            await Resource.create({ url: 'url', type: 'photo', occurrence_id: occurrence.id })
         }
 
-        if (data.resources.video) {
-            await Resource.create({ url: data.resources.video, type: 'video', occurrence_id: occurrence.id })
+
+        for (let index = 0; index < data.num_videos; index++) {
+
+            // gera url para foto
+            await Resource.create({ url: 'url', type: 'video', occurrence_id: occurrence.id })
         }
 
-        if (data.resources.audio) {
-            await Resource.create({ url: data.resources.audio, type: 'audio', occurrence_id: occurrence.id })
+
+        for (let index = 0; index < data.num_audios; index++) {
+
+            // gera url para foto
+            await Resource.create({ url: 'url', type: 'audio', occurrence_id: occurrence.id })
         }
 
         return { success: true, message: "occurrence created", data: occurrence }

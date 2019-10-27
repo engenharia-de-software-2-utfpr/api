@@ -44,11 +44,9 @@ test('retorna erro se a coordenada é inválida ao criar ocorrência (não encon
       longitude: 'b'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
@@ -81,11 +79,9 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
       longitude: '456'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
@@ -102,7 +98,7 @@ test('cria uma ocorrência passando todas as informações', async ({ assert, cl
   const resources = (await responseObj.resources().fetch()).toJSON()
 
   assert.isNotNull(responseObj)
-  assert.lengthOf(resources, 5)
+  assert.lengthOf(resources, 3)
 })
 
 test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, client }) => {
@@ -122,10 +118,9 @@ test('cria uma ocorrência passando 2 fotos e um vídeo', async ({ assert, clien
       longitude: '456'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com'],
-      video: 'https://www.video.com'
-    },
+    num_photos: 2,
+    num_videos: 1,
+    num_audios: 0,
     description: 'ola',
     criticity_level: 3
   }
@@ -211,11 +206,9 @@ test('retorna ocorrências na área', async ({ assert, client }) => {
       longitude: '-52.3754754'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
@@ -259,11 +252,9 @@ test('retorna ocorrências na área (kRing vizinho)', async ({ assert, client })
       longitude: '-52.406844'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
@@ -307,11 +298,9 @@ test('retorna vazio (fora da borda do kRing vizinho)', async ({ assert, client }
       longitude: '-52.407203'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
@@ -356,11 +345,9 @@ test('retorna 2 ocorrências', async ({ assert, client }) => {
       longitude: '-52.407203'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
@@ -377,11 +364,9 @@ test('retorna 2 ocorrências', async ({ assert, client }) => {
       longitude: '-52.406844'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
@@ -427,11 +412,9 @@ test('retorna detalhes de uma ocorrência', async ({ assert, client }) => {
       longitude: '-52.3754754'
     },
     category_id: 'fire',
-    resources: {
-      photos: ['https://www.photo1.com', 'https://www.photo2.com', 'https://www.photo3.com',],
-      video: 'https://www.video.com',
-      audio: 'https://www.audio.com'
-    },
+    num_photos: 1,
+    num_videos: 1,
+    num_audios: 1,
     description: 'ola',
     criticity_level: 3
   }
