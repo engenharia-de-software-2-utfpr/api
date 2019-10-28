@@ -10,11 +10,13 @@ class FirebaseService {
 
     const admin = require('firebase-admin')
 
-    admin.initializeApp({
-      credential: admin.credential.cert(decoded),
-      storageBucket: Env.get('BUCKET_NAME')
-    })
+    if (admin.apps.length === 0) {
+      admin.initializeApp({
+        credential: admin.credential.cert(decoded),
+        storageBucket: Env.get('BUCKET_NAME')
+      })
 
+    }
     this.admin = admin
   }
 
