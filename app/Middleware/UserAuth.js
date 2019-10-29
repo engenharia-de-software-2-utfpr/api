@@ -30,6 +30,7 @@ class UserAuth {
         response.unauthorized({ success: false, message: 'unauthorized', data: null })
       }
     } catch (error) {
+      console.log(error)
       response.unauthorized({ success: false, message: 'unauthorized', data: null })
 
     }
