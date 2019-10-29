@@ -136,7 +136,6 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
   const firebaseToken = jwt.sign(userInfo, 'poi')
   ioc.fake('Adonis/Services/Firebase', firebaseFake)
   let response = await client.post('user/signup').send({ token: firebaseToken }).end()
-  ioc.restore('Adonis/Services/Firebase')
 
   const token = 'Bearer ' + response.body.data.token
 
@@ -162,6 +161,7 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
   await client.post('occurrence').header('Authorization', token).send(payload).end()
   await client.post('occurrence').header('Authorization', token).send(payload).end()
   const x = await client.post('occurrence').header('Authorization', token).send(payload).end()
+  ioc.restore('Adonis/Services/Firebase')
 
   console.log(x.body)
 
