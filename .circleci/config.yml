@@ -3,7 +3,7 @@ jobs:
   build-test:
     working_directory: ~/RioDoCampoLimpo
     docker:
-      - image: node:10-alpine
+      - image: node:8-alpine
       - image: circleci/postgres:12-alpine
         environment:
           POSTGRES_USER: postgres
