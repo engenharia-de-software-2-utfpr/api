@@ -47,6 +47,7 @@ class OccurrenceController {
 
         const category = await OccurrenceCategory.findByOrFail('id', data.category_id)
 
+
         const h3Index = h3.geoToH3(data.coordinates.latitude, data.coordinates.longitude, 7)
         if (!h3Index)
             return { success: false, message: "invalid coordinates", data: null }

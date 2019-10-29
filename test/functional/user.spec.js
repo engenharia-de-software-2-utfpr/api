@@ -38,8 +38,6 @@ test('cadastra um novo usuário', async ({ assert, client }) => {
   const response = await client.post('user/signup').send({ token: testToken }).end()
   ioc.restore('Adonis/Services/Firebase')
 
-  // console.log(response.body)
-
   response.assertStatus(200)
   response.assertJSONSubset({
     success: true,
