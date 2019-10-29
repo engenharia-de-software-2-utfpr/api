@@ -32,11 +32,13 @@ class OccurrenceController {
 
         const kRing = h3.kRing(h3Index, 1);
 
+
         const occurrences = await Database
             .select('id', 'category_id', 'latitude', 'longitude')
             .from('occurrences')
-            .where('status', 'approved')
+            // .where('status', 'approved')
             .whereIn('h3_index', kRing)
+
 
         return { success: true, message: "occurrences found", data: occurrences }
     }
