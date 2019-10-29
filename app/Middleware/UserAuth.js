@@ -13,16 +13,16 @@ class UserAuth {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle({ request, response }, next) {
+  async handle({ request, response, auth }, next) {
 
     try {
 
-      const token = request.header('Authorization')
+      const token = request.headers()['authorization'].split(' ')[1]
+      const { uid } = await auth._verifyToken(token)
 
-      const decodedToken = await Firebase.decodeToken(token)
-      const userId = decodedToken["user_id"]
-
-      let user = await User.find(userId)
+      const user = await User.find(uid)
+      // Por algum motivo o getUser não funciona e eu to cansado
+      // const user = await auth.getUser()
       if (user) {
         request.user = user
         await next()
@@ -30,7 +30,6 @@ class UserAuth {
         response.unauthorized({ success: false, message: 'unauthorized', data: null })
       }
     } catch (error) {
-      console.log('aque', error)
       response.unauthorized({ success: false, message: 'unauthorized', data: null })
 
     }

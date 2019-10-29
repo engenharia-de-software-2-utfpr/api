@@ -24,6 +24,7 @@ class FirebaseService {
     try {
       return await this.admin.auth().verifyIdToken(token)
     } catch (error) {
+      console.log("erri", error)
       return null
     }
   }
