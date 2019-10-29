@@ -47,14 +47,10 @@ class OccurrenceController {
 
         const category = await OccurrenceCategory.findByOrFail('id', data.category_id)
 
-        console.log('aaaa')
 
         const h3Index = h3.geoToH3(data.coordinates.latitude, data.coordinates.longitude, 7)
         if (!h3Index)
             return { success: false, message: "invalid coordinates", data: null }
-
-        console.log('bbbb')
-
 
         const occurrence = await Occurrence.create({
             latitude: data.coordinates.latitude,
@@ -68,9 +64,6 @@ class OccurrenceController {
 
 
         const response = { ...occurrence.toJSON(), photos: [], videos: [], audios: [] }
-
-        console.log('cccc')
-
 
         for (let index = 0; index < data.num_photos; index++) {
             const fileName = uuid.v4() + '.jpg'
@@ -100,9 +93,6 @@ class OccurrenceController {
 
             response.audios.push(url)
         }
-
-        console.log('dddd')
-
 
         return { success: true, message: "occurrence created", data: response }
     }
