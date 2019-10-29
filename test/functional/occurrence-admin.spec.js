@@ -162,11 +162,8 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
   await client.post('occurrence').header('Authorization', token).send(payload).end()
   const x = await client.post('occurrence').header('Authorization', token).send(payload).end()
 
-  console.log(x)
-
   response = await client.get('occurrence-admin').loginVia(admin, 'jwt').end()
 
-  console.log(response.body)
 
   assert.lengthOf(response.body.data, 3)
   assert.strictEqual(response.body.data[0].status, 'waiting')
