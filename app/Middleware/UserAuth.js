@@ -21,6 +21,7 @@ class UserAuth {
       const { uid } = await auth._verifyToken(token)
 
       const user = await User.find(uid)
+
       // Por algum motivo o getUser não funciona e eu to cansado
       // const user = await auth.getUser()
       if (user) {
