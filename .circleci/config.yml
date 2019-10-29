@@ -12,14 +12,14 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-2-{{ checksum "package.json" }}
+          key: dependency-cache-3-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
           name: Instalando pacotes
           command: npm i
       - save_cache:
-          key: dependency-cache-2-{{ checksum "package.json" }}
+          key: dependency-cache-3-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
