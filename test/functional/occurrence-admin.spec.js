@@ -158,15 +158,10 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
     criticity_level: 3
   }
 
-  try {
-    await client.post('occurrence').header('Authorization', token).send(payload).end()
 
-  } catch (error) {
-    console.log(error)
-  }
-
-  // await client.post('occurrence').header('Authorization', token).send(payload).end()
-  // const x = await client.post('occurrence').header('Authorization', token).send(payload).end()
+  await client.post('occurrence').header('Authorization', token).send(payload).end()
+  await client.post('occurrence').header('Authorization', token).send(payload).end()
+  const x = await client.post('occurrence').header('Authorization', token).send(payload).end()
 
   // response = await client.get('occurrence-admin').loginVia(admin, 'jwt').end()
 
