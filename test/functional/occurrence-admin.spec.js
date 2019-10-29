@@ -163,6 +163,8 @@ test('lista todas as ocorrências', async ({ assert, client }) => {
   await client.post('occurrence').header('Authorization', token).send(payload).end()
   const x = await client.post('occurrence').header('Authorization', token).send(payload).end()
 
+  console.log(x.body)
+
   // response = await client.get('occurrence-admin').loginVia(admin, 'jwt').end()
 
 
