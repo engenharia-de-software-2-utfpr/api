@@ -6,7 +6,7 @@ class StoreOccurrence {
       "coordinates.latitude": "required|string",
       "coordinates.longitude": "required|string",
       "category_id": "required|string",
-      "num_photos": "required|number|range:0,4",
+      "num_photos": "required|number|range:-1,4",
       "num_videos": "required|number|range:-1,2",
       "num_audios": "required|number|range:-1,2",
       "description": "string|max:1000",
