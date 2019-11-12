@@ -78,7 +78,7 @@ class OccurrenceController {
 
 
         for (let index = 0; index < data.num_videos; index++) {
-            const fileName = uuid.v4() + '.jpg'
+            const fileName = uuid.v4() + '.mp4'
             const url = await Firebase.generateUrl(fileName)
 
             await Resource.create({ name: fileName, type: 'video', occurrence_id: occurrence.id })
@@ -88,7 +88,7 @@ class OccurrenceController {
 
 
         for (let index = 0; index < data.num_audios; index++) {
-            const fileName = uuid.v4() + '.jpg'
+            const fileName = uuid.v4() + '.aac'
             const url = await Firebase.generateUrl(fileName)
 
             await Resource.create({ name: fileName, type: 'audio', occurrence_id: occurrence.id })
