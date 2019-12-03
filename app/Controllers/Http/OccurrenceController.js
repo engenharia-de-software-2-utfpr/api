@@ -23,18 +23,18 @@ class OccurrenceController {
         const medias = [
             {
                 type: 'video',
-                url: 'https://www.google.com/url?sa=i&source=imgres&cd=&cad=rja&uact=8&ved=2ahUKEwjkl_yPtZjmAhUYILkGHXw_BqcQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.brandeps.com%2Ficon%2FV%2FVideo-clip-01&psig=AOvVaw0rLDr-CxWtgj890OogGjWu&ust=1575425821450078'
+                url: 'https://www.brandeps.com/icon-download/V/Video-clip-icon-vector-01.svg'
             },
             {
                 type: 'photo',
-                url: 'https://www.google.com/url?sa=i&source=imgres&cd=&cad=rja&uact=8&ved=2ahUKEwio9Oa5t5jmAhU1H7kGHcsAD2EQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.union.edu%2Fschaffer-library%2Fstaff-departments%2Fsarah-kirby&psig=AOvVaw3WH6-B3IHO2OXUy_Znwx7h&ust=1575425837448402'
+                url: 'https://rccradio.fm/wp-content/themes/bacata/images/thumbnail-default.jpg'
             },
             {
                 type: 'audio',
-                url: 'https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwivrI_ht5jmAhV4GLkGHfW6A9oQjRx6BAgBEAQ&url=https%3A%2F%2Fpngtree.com%2Fso%2Faudio-icon&psig=AOvVaw0txBUvD9SfMd_ckZ7MsXbY&ust=1575426613031783'
+                url: 'https://cdn.pixabay.com/photo/2017/11/10/05/34/sound-2935466_960_720.png'
             },
         ]
-        
+
         occurrence.medias = medias
 
         return { success: true, message: "occurrence found", data: occurrence }
