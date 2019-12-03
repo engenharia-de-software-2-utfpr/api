@@ -66,6 +66,17 @@ Sucesso: { success: true, message: "occurrence found", data: occurrence }
 Route.get('/occurrence/:id', 'OccurrenceController.details').middleware('userAuth')
 
 
+/* GET /form - Lista os formulários ativos
+
+Exemplo chamada: GET /form
+
+Resposta:
+Sucesso: { success: true, message: "forms found", data: forms }
+*/
+Route.get('/form', 'FormController.actived').middleware('userAuth')
+
+
+
 
 
 /* GET /occurrence-admin/:id - Detalhes de uma ocorrência para o administrador
@@ -153,3 +164,73 @@ Route.post('/user/signup', 'UserController.signup')
 
 
 Route.get('/occurrence-category', 'OccurrenceCategoryController.index')
+
+
+
+/* POST /form - Cadastra um novo formulário
+
+Exemplo chamada:
+
+{
+	"title": "Descrição do formulário"
+	"url": "URL do formulário"
+}
+
+Resposta:
+
+Sucesso: { success: true, message: "form created", data: form }
+*/
+Route.post('/form', 'FormController.create').middleware('adminAuth')
+
+/* PUT /form - Atualiza as informações de um formulário
+
+Exemplo chamada:
+
+{
+	"id": id
+	"title": "Nova descrição do formulário"
+	"url": "novo URL do formulário"
+	"active": [true/false]
+}
+
+Respostas:
+
+Sucesso: { success: true, message: "form updated", data: form }
+Caso o form não exista: { success: false, message: "form not updated", data: null }
+
+*/
+Route.put('/form', 'FormController.update').middleware('adminAuth')
+
+/* GET /form/all - Todos os formulários
+
+Exemplo chamada: GET /form/all
+
+Resposta:
+Sucesso: { success: true, message: "forms found", data: [form] }
+
+*/
+Route.get('/form/all', 'FormController.list').middleware('adminAuth')
+
+/* GET /form/:id - Retorna todos os formulários
+
+Exemplo chamada: GET /form/2
+
+Resposta:
+Sucesso: { success: true, message: "forms found", data: form }
+Erro: { success: false, message: "form not found", data: null }
+
+*/
+Route.get('/form/:id', 'FormController.retrieve').middleware('adminAuth')
+
+/* DELETE /form/:id - Remove um formulário
+
+Exemplo chamada: DELETE /form/2
+
+Resposta:
+Sucesso: { success: true, message: "form removed", data: form }
+Erro: { success: false, message: "form not removed", data: null }
+
+
+*/
+Route.delete('/form/:id', 'FormController.delete').middleware('adminAuth')
+
