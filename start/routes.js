@@ -65,6 +65,20 @@ Sucesso: { success: true, message: "occurrence found", data: occurrence }
 */
 Route.get('/occurrence/:id', 'OccurrenceController.details').middleware('userAuth')
 
+
+
+
+/* GET /occurrence-admin/:id - Detalhes de uma ocorrência para o administrador
+
+Exemplo chamada: GET /occurrence-admin/1
+
+Respostas:
+
+Ocorrência não encontrada: { success: false, message: "occurrence not found", data: null }
+Sucesso: { success: true, message: "occurrence found", data: occurrence }
+*/
+Route.get('/occurrence-admin/:id', 'OccurrenceAdminController.details').middleware('adminAuth')
+
 /* PUT /occurrence-admin/:id/status - Atualiza status ocorrência
 
 Exemplo chamada: PUT /occurrence-admin/1/status
