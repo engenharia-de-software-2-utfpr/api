@@ -1,6 +1,8 @@
 'use strict'
 
 const Occurrence = use('App/Models/Occurrence')
+const Database = use('Database')
+const Firebase = use('Adonis/Services/Firebase')
 
 const Logger = use('Logger')
 
@@ -27,26 +29,25 @@ class OccurrenceAdminController {
     }
 
     async details({ request, params }) {
+
         const occurrence = await Occurrence.find(params.id)
 
         if (!occurrence) return { success: false, message: "occurrence not found", data: null }
 
-        const medias = [
-            {
-                type: 'video',
-                url: 'https://www.brandeps.com/icon-download/V/Video-clip-icon-vector-01.svg'
-            },
-            {
-                type: 'photo',
-                url: 'https://rccradio.fm/wp-content/themes/bacata/images/thumbnail-default.jpg'
-            },
-            {
-                type: 'audio',
-                url: 'https://cdn.pixabay.com/photo/2017/11/10/05/34/sound-2935466_960_720.png'
-            },
-        ]
+        
+        const medias = await Database.select('type', 'name')
+            .from('resources')
+            .where('occurrence_id', params.id)
 
-        occurrence.medias = medias
+        occurrence.medias = []
+        for (let index = 0; index < medias.length; index++) {
+            occurrence.medias.push(
+                {
+                    type: medias[index].type,
+                    url: await Firebase.generateUrl(medias[index].name)
+                }
+            )
+        }
 
         return { success: true, message: "occurrence found", data: occurrence }
     }
