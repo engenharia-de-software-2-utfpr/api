@@ -29,7 +29,6 @@ class OccurrenceAdminController {
     }
 
     async details({ request, params }) {
-
         const occurrence = await Occurrence.find(params.id)
 
         if (!occurrence) return { success: false, message: "occurrence not found", data: null }
